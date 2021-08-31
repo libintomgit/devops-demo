@@ -107,10 +107,13 @@ kubectl get nodes
 ```
 ## Change the Cgroup driver from cgroupfs to systemd
 ```
-ocker system info | grep -i driver
+# Check the existing driver
+ docker system info | grep -i driver
+ [output]
  Storage Driver: overlay2
  Logging Driver: json-file
  Cgroup Driver: cgroupfs
+ [/output]
  
 # docker daemon config for systemd from cgroupfs & restart 
 cat <<EOF > /etc/docker/daemon.json

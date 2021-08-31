@@ -105,3 +105,18 @@ kubeadm token create --print-join-command
 ```
 kubectl get nodes
 ```
+## Change the Cgroup driver from cgroupfs to systemd
+```
+ocker system info | grep -i driver
+ Storage Driver: overlay2
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ 
+# docker daemon config for systemd from cgroupfs & restart 
+cat <<EOF > /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+systemctl daemon-reload && systemctl restart docker
+```
